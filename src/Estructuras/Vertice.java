@@ -31,7 +31,7 @@ public class Vertice {
     }
     
     public void addArco(Vertice vertice) {
-        getArcos().insertBegin(vertice);
+        getArcos().insertFinal(vertice);
     }
     
 }

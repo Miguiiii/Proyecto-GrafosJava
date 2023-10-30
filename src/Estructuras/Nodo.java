@@ -7,19 +7,19 @@ package Estructuras;
  */
 public class Nodo {
 
-    private Object element;
+    private ListaVertices element;
     private Nodo next;
 
-    public Nodo(Object element) {
+    public Nodo(ListaVertices element) {
         this.element = element;
         this.next = null;
     }
 
-    public Object getElement() {
+    public ListaVertices getElement() {
         return element;
     }
 
-    public void setElement(Object element) {
+    public void setElement(ListaVertices element) {
         this.element = element;
     }
 

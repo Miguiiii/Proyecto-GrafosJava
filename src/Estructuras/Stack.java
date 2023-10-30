@@ -7,7 +7,7 @@ package Estructuras;
  */
 public class Stack{
     
-    private Nodo tope;
+    private NodoVertice tope;
     private int length;
 
     public Stack() {
@@ -15,11 +15,11 @@ public class Stack{
         this.length = 0;
     }
 
-    public Nodo getTope() {
+    public NodoVertice getTope() {
         return tope;
     }
 
-    public void setTope(Nodo peak) {
+    public void setTope(NodoVertice peak) {
         this.tope = peak;
     }
 
@@ -31,8 +31,8 @@ public class Stack{
         this.length = length;
     }
 
-    public void push(Object element) {
-        Nodo nodo = new Nodo(element);
+    public void push(Vertice element) {
+        NodoVertice nodo = new NodoVertice(element);
         if (isEmpty()) {
             setTope(nodo);
         } else {
@@ -42,16 +42,16 @@ public class Stack{
         length++;
     }
 
-    public Nodo pop() {
+    public Vertice pop() {
         if (isEmpty()) {
             System.out.println("La lista se encuentra vacia");
             return null;
         } else {
-            Nodo pointer = getTope();
+            NodoVertice pointer = getTope();
             setTope(pointer.getNext());
             pointer.setNext(null);
             length--;
-            return pointer;
+            return pointer.getElement();
         }
     }
 
@@ -60,9 +60,9 @@ public class Stack{
     }
     
     public void print(){
-        Nodo pointer = getTope();
+        NodoVertice pointer = getTope();
         while (pointer != null) {
-            System.out.println("[ " + pointer.getElement() + " ]");
+            System.out.println("[ " + pointer.getElement().getPersona() + " ]");
             pointer = pointer.getNext();
         } 
     }

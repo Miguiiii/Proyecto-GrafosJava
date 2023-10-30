@@ -5,11 +5,12 @@ import java.util.Iterator;
 
 public class Grafo implements Iterable<Vertice> {
     
-    private Vertice head;
+    private Vertice head, tail;
     private int size;
 
     public Grafo() {
         this.head = null;
+        this.tail = null;
         this.size = 0;
     }
 
@@ -21,6 +22,14 @@ public class Grafo implements Iterable<Vertice> {
         this.head = head;
     }
 
+    public Vertice getTail() {
+        return tail;
+    }
+
+    public void setTail(Vertice tail) {
+        this.tail = tail;
+    }
+    
     public int getSize() {
         return size;
     }
@@ -28,21 +37,20 @@ public class Grafo implements Iterable<Vertice> {
     public void setSize(int size) {
         this.size = size;
     }
-    
 
     public boolean isEmpty() {
         return getHead() == null;
     }
     
-    public void addVertice(Object start, Object end){
+    public void addArista(Object start, Object end){
         boolean StartFound = false;
         boolean EndFound = false;
         Vertice inicio = null, fin = null;
         for (Vertice i:this) {
-            if (i.getPersona() == start) {
+            if (i.getPersona().equals(start)) {
                 inicio = i;
                 StartFound = true;
-            } else if (i.getPersona() == end) {
+            } else if (i.getPersona().equals(end)) {
                 fin = i;
                 EndFound = true;
             }
@@ -63,6 +71,7 @@ public class Grafo implements Iterable<Vertice> {
         Vertice vertice = new Vertice(element);
         if (isEmpty()){
             setHead(vertice);
+            setTail(vertice);
         } else {
             vertice.setNext(getHead());
             setHead(vertice);
@@ -71,17 +80,15 @@ public class Grafo implements Iterable<Vertice> {
     }
     
     public void insertFinal(Object element) {
-        Vertice vertice = new Vertice(element);
         if (isEmpty()){
-            setHead(vertice);
+            insertBegin(element);
         } else {
-            Vertice pointer = getHead();
-            while (pointer.getNext() != null) {
-                pointer = pointer.getNext();
-            }
+            Vertice vertice = new Vertice(element);
+            Vertice pointer = getTail();
             pointer.setNext(vertice);
+            setTail(vertice);
+            size++;
         }
-        size++;
     } 
 
     public Vertice deleteBegin() {
@@ -127,11 +134,35 @@ public class Grafo implements Iterable<Vertice> {
         return false;
     }
     
+    public Grafo invertirGrafo() {
+        Grafo invertido = new Grafo();
+        for (Vertice i:this) {
+            invertido.insertBegin(i.getPersona());
+        }
+        for (Vertice i:this) {
+            for (Vertice j:i.getArcos()) {
+                invertido.addArista(j.getPersona(), i.getPersona());
+            }
+        }
+        return invertido;
+    }
+    
     @Override
     public Iterator iterator() {
         return new VerticeIterator(this);
     }
 
+    public void print() {
+        for (Vertice i:this) {
+            System.out.print(i.getPersona());
+            ListaVertices arcos = i.getArcos();
+            for (Vertice j:arcos) {
+                System.out.print(" [ "+j.getPersona()+" ] ");
+            }
+            System.out.println("");
+        }
+    }
+    
 }
 
 class VerticeIterator implements Iterator {

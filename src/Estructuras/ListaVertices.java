@@ -5,11 +5,12 @@ import java.util.Iterator;
 
 public class ListaVertices implements Iterable<Vertice> {
     
-    private NodoVertice head;
+    private NodoVertice head, tail;
     private int length;
 
     public ListaVertices() {
         this.head = null;
+        this.tail = null;
         this.length = 0;
     }
     
@@ -21,6 +22,14 @@ public class ListaVertices implements Iterable<Vertice> {
         this.head = head;
     }
 
+    public NodoVertice getTail() {
+        return tail;
+    }
+
+    public void setTail(NodoVertice tail) {
+        this.tail = tail;
+    }
+    
     public int getLength() {
         return length;
     }
@@ -37,27 +46,27 @@ public class ListaVertices implements Iterable<Vertice> {
         NodoVertice nodoVertice = new NodoVertice(vertice);
         if (isEmpty()){
             setHead(nodoVertice);
+            setTail(nodoVertice);
         } else {
             nodoVertice.setNext(getHead());
             setHead(nodoVertice);
         }
         length++;
     }
-/*
-    public void insertFinal(Object element) {
-        Vertice vertice = new Vertice(element);
-        if (isEmpty()){
-            setHead(vertice);
-        } else {
-            Vertice pointer = getHead();
-            while (pointer.getNext() != null) {
-                pointer = pointer.getNext();
-            }
-            pointer.setNext(vertice);
-        }
-        length++;
-    } 
 
+    public void insertFinal(Vertice vertice) {
+        if (isEmpty()){
+            insertBegin(vertice);
+            
+        } else {
+            NodoVertice nodoVertice = new NodoVertice(vertice);
+            NodoVertice pointer = getTail();
+            pointer.setNext(nodoVertice);
+            setTail(nodoVertice);
+            length++;
+        }
+    } 
+/*
     public void insertAtIndex(Object element, int index) {
         Nodo nodo = new Nodo(element);
         if (isEmpty() || index == 0){
@@ -173,7 +182,7 @@ public class ListaVertices implements Iterable<Vertice> {
     
     @Override
     public Iterator iterator() {
-        return new ListaIterator(this);
+        return new ListaVerticesIterator(this);
     }
     
     public void print() {
@@ -185,11 +194,11 @@ public class ListaVertices implements Iterable<Vertice> {
     }
 }
 
-class ListaIterator implements Iterator {
+class ListaVerticesIterator implements Iterator {
     
     NodoVertice pointer;
 
-    public ListaIterator(ListaVertices list) {
+    public ListaVerticesIterator(ListaVertices list) {
         pointer = list.getHead();
     }
     
