@@ -1,9 +1,12 @@
 
 package Estructuras;
 
-
+/**
+ *
+ * @author usuario
+ */
 public class Nodo {
-    
+
     private Object element;
     private Nodo next;
 
@@ -27,5 +30,5 @@ public class Nodo {
     public void setNext(Nodo next) {
         this.next = next;
     }
-
+    
 }
