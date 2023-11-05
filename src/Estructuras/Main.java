@@ -7,6 +7,7 @@ public class Main {
   
     
     public static void main(String args[]) {
+        System.out.println("HOLA");
         System.setProperty("org.graphstream.ui", "swing");
         GUI pantalla = new GUI();
         pantalla.setSize(720, 420);
